@@ -5,23 +5,19 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 
-  conn.query(`
-      SELECT * FROM tb_menus ORDER BY title
-  `), (err, results) =>{
+    conn.query(`SELECT * FROM tb_menus ORDER BY title`, (err, results) =>{
 
-    if (err) {
+      if (err) {
 
-      console.log(err);
+          console.log(err);
 
-    }
+      }
 
-    res.render('index', {
-      title: 'Restaurante Saboroso!',
-      menus: results
+      res.render('index', {
+        title: 'Restaurante Saboroso!',
+        menus: results
+      });
     });
-
-  };
-
-});
+  });
 
 module.exports = router;
