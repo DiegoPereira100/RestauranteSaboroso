@@ -4,7 +4,7 @@ module.exports = {
 
     render(req, res, error, sucess) {
 
-        res.render('contacts', {title: 'Contact - Restaurante Saboroso!', background: 'images/img_bg_3.jpg', h1: 'Diga um oi!', body: req.body });
+        res.render('contacts', {title: 'Contact - Restaurante Saboroso!', background: 'images/img_bg_3.jpg', h1: 'Diga um oi!', body: req.body, error, sucess });
 
     },
 
