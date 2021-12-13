@@ -2,7 +2,7 @@ var conn = require('./../inc/db');
 var express = require('express');
 var menus = require('./../inc/menus');
 var reservations = require('./../inc/reservations');
-var contacts = require('../inc/contacts');
+var contacts = require('./../inc/contacts');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/contacts', function(req, res, next){
 
-  res.render('contacts', {title: 'Contact - Restaurante Saboroso!', background: 'images/img_bg_3.jpg', h1: 'Diga um oi!' });
+  contacts.render(req, res);
 
 });
 
