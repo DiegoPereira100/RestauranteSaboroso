@@ -2,7 +2,8 @@ var conn = require('./../inc/db');
 var express = require('express');
 var menus = require('./../inc/menus');
 var reservations = require('./../inc/reservations');
-var contacts = require('./../inc/contacts');
+var contacts = require("./../inc/contacts");
+var users = require('./../inc/users');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {

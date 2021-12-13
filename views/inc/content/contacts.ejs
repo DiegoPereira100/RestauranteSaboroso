@@ -4,14 +4,14 @@
             <div class="col-md-12">
                 <div class="col-md-6 animate-box">
 
-                <%- include("inc/content/alerts") -%> 
+                <%- include("alerts") -%> 
 
                 <h3>Entre em Contato</h3>
-                <form action="/contacts.js" method="post">
+                <form action="/contacts" method="post">
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="sr-only" for="name">Nome</label>
-                            <input type="text" id="name" class="form-control" placeholder="Seu nome" value="<%= body.name %>">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Seu nome" value="<%= body.name %>">
                         </div>
                         
                     </div>
@@ -19,7 +19,7 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="sr-only" for="email">E-mail</label>
-                            <input type="text" id="email" class="form-control" placeholder="Seu endereço de e-mail" value="<%= body.email %>">
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Seu endereço de e-mail" value="<%= body.email %>">
                         </div>
                     </div>
                     <div class="row form-group">
