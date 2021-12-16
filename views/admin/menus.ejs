@@ -36,8 +36,8 @@
                 </tr>
               </thead>
               <tbody>
-                <% data.forEach(function(row){ %>
-                <tr data-row="<%= JSON.stringify(row) %>">
+                <% data.forEach(row =>{ %>
+                <tr data-row="<%= JSON.stringify(row)%>">
                   <td><%= row.id %></td>
                   <td><img src="/<%= row.photo %>" alt="" style="height: 18px;"></td>
                   <td><%= row.title %></td>
@@ -140,7 +140,6 @@
       <!-- /.modal-dialog -->
     </div>
 
-    
     <%- include('inc/footer') -%>
 
     <script src="/js/hcode-filereader.js"></script>
@@ -149,13 +148,15 @@
     <script>
 
     new HcodeFileReader("#modal-create [type=file]", "#modal-create img");
-    new HcodeFileReader("#modal-create [type=file]", "#modal-update img");
+    new HcodeFileReader("#modal-update [type=file]", "#modal-update img");
 
     let formCreate = document.querySelector("#modal-create form");
 
       formCreate.save().then(json=>{
 
-        window.location.reload();
+        console.log(json)
+
+       window.location.reload();
 
       }).catch(err=>{
 

@@ -1,6 +1,6 @@
 let conn = require('./db');
 let path = require('path');
-const { resolve } = require('path');
+
 
 module.exports = {
     getMenus(){
@@ -25,65 +25,69 @@ module.exports = {
 
     save(fields, files){
 
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve,reject)=>{
 
             fields.photo = `images/${path.parse(files.photo.path).base}`;
 
-            let query, queryPhoto = '', params = [
+            let query,queryPhoto = '', params = [
 
                 fields.title,
                 fields.description,
-                fields.price
+                fields.price    
             ];
 
             if (files.photo.name) {
 
-                queryPhoto = ',photo = ?';
+                queryPhoto = `,photo = ?`;
 
-                params.push(fields.id);
+                params.push(fields.photo);
 
             }
 
-            if (parseInt(fields.id) > 0){
+            if(parseInt(fields.id) > 0){
 
-                params.push(fields.photo);
+                params.push(fields.id)
 
                 query = `
                     UPDATE tb_menus
                     SET title = ?,
-                        description = ?.
-                        price = ?,
+                        description = ?,
+                        price = ?
                         ${queryPhoto}
-                    WHERE id = ?
-                `;
+                    WHERE ID = ?
+                `
     
-            } else {
+            }else{
 
-                if (!files.photo.name) {
-                    reject('Envie a foto do prato.');
+                if (!files.photo.name){
+                    reject('envie a foto do prato.')
                 }
 
-                query = `INSERT INTO tb_menus (title, description, price, photo)
-                VALUES(?, ?, ?, ?)`;
+                query=`
+                INSERT INTO tb_menus (title, description, price, photo)
+                VALUES(?,?,?,?)
+                `
 
+                
             }
-
-            conn.query(query, params, (err, results)=> {
-
+            conn.query(query,params,(err, results)=>{
+    
                 if (err) {
-
+    
                     reject(err);
-
+    
                 } else {
 
+    
                     resolve(results);
-
+    
                 }
-
+    
             });
         });
-
+        
     },
+
 
     delete(id){
 
