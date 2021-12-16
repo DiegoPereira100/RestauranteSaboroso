@@ -207,6 +207,15 @@
 
 <script>
 
+  new HcodeGrid({
+    formCreate:'#modal-create form',
+    formUpdate:'#modal-update form',
+    btnUpdate:'.btn-update',
+    btnDelete:'.btn-delete',
+    deleteUrl:'/admin/reservations/${data.id}',
+    deleteMsg:'Deseja realmente excluir a reserva de ${data.id}?'
+  });
+
 let formCreate = document.querySelector("#modal-create form");
 
 formCreate.save().then(json=>{
