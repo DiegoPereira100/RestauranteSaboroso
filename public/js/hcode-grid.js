@@ -1,21 +1,60 @@
 class HcodeGrid {
 
-    constructor(){
+    constructor(configs){
+
+        configs.listeners = Object.assign({
+        
+            listeners:{
+  
+                afterUpdateClick: (e) => {
+          
+                  $('#modal-update').modal('show');
+          
+                },
+
+                afterDeleteClick: (e) => {
+          
+                    window.location.reload();
+            
+                  },
+                  
+                  afterFormCreate: (e) => {
+          
+                    window.location.reload();
+            
+                  },
+
+                  afterFormUpdate: (e) => {
+          
+                    window.location.reload();
+            
+                  },
+
+                  afterFormCreateError: (e) => {
+
+                    alert('Não foi possivel enviar o formulário');
+
+                  },
+
+                  afterFormUpdateError: (e) => {
+
+                    alert('Não foi possivel editar o formulário');
+
+                  }
+            }
+
+        }, configs.listeners);
 
         this.options = Object.assign({}, {
 
             formCreate:'#modal-create form',
             formUpdate:'#modal-update form',
             btnUpdate:'.btn-update',
-            btnDelete:'.btn-delete',
-            configs
-
-        });
+            btnDelete:'.btn-delete'
+        }, configs);
 
         this.initForms();
         this.initButtons();
-
-        let formUpdate = document.querySelector(this.options.formUpdate);
 
     }
 
@@ -25,11 +64,11 @@ class HcodeGrid {
 
         this.formCreate.save().then(json=>{
 
-            window.location.reload();
+            this.fireEvent('afterFormCreate');
 
             }).catch(err=>{
 
-            console.log(err);
+            this.fireEvent('afterFormCreateError');
 
             });
 
@@ -38,30 +77,44 @@ class HcodeGrid {
 
         this.formUpdate.save().then(json=>{
 
-            window.location.reload();
+            this.fireEvent('afterFormUpdate');
 
             }).catch(err=>{
 
-            console.log(err);
+            this.fireEvent('afterFormUpdateError');
 
             });
 
     }
 
-    init(){
+    fireEvent(name, args) {
 
-    
+        if (typeof this.options.listeners[name] === 'function') this.options.listeners[name].apply(this, args);
+
+    }
+
+    getTrData(e){
+
+        let tr = e.composedPath().find(el => {
+
+        return (el.tagName.toUpperCase() === 'TR');
+
+        });
+
+        return JSON.parse(tr.dataset.row);
+
+    }
+
+    initButtons(){
+
+
             [...document.querySelectorAll(this.options.btnUpdate)].forEach(btn => {
 
             btn.addEventListener('click', e =>{
 
-            let tr = e.composedPath().find(el => {
+                this.fireEvent('beforeDeleteClick');
 
-            return (el.tagName.toUpperCase() === 'TR');
-
-            });
-
-            let data = JSON.parse(tr.dataset.row);
+                let data = this.getTrData(e);
 
             for (let name in data) {
 
@@ -82,8 +135,9 @@ class HcodeGrid {
                 }
 
             }
-            
+
             $('#modal-update').modal('show');
+            this.fireEvent('afterUpdateClick', [e]);
 
 
             });
@@ -93,6 +147,10 @@ class HcodeGrid {
             [...document.querySelectorAll(this.options.btnDelete)].forEach(btn=>{
 
             btn.addEventListener('click', e=>{
+
+                this.fireEvent('beforeDeleteClick');
+
+                let data = this.getTrData(e);
 
                 let tr = e.composedPath().find(el => {
 
@@ -110,10 +168,10 @@ class HcodeGrid {
 
             })
                 .then(response => response.json())
-                .the(json => {
+                .then(json => {
 
-                window.location.reload();
-
+                this.fireEvent('afterDeleteClick');
+                
                         });
 
                     } 
@@ -124,4 +182,4 @@ class HcodeGrid {
 
     }
 
-}
+} 

@@ -52,7 +52,7 @@ module.exports = {
 
             {
 
-            text:"Tela Inicial",
+            text:"Menus",
             href:"/admin/menus",
             icon:"cutlery",
             active: false
