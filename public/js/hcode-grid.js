@@ -92,7 +92,7 @@ class HcodeGrid {
         this.formUpdate = document.querySelector(this.options.formUpdate);
 
         if (this.formUpdate) {
-
+ 
             this.formUpdate.save({
 
                 success:()=>{
