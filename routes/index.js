@@ -5,6 +5,8 @@ var menus = require('./../inc/menus');
 var reservations = require('./../inc/reservations');
 var contacts = require("./../inc/contacts");
 var users = require('./../inc/users');
+const req = require('express/lib/request');
+var emails = require('./../inc/emails');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -118,6 +120,20 @@ router.post('/reservations', function(req, res, next){
 router.get('/services', function(req, res, next){
 
   res.render('services', {title: 'Service - Restaurante Saboroso!', background: 'images/img_bg_1.jpg', h1: 'É um prazer poder servir!' });
+
+});
+
+router.post("/subscribe", function(req, res, next){
+
+  emails.save(req).then(results =>{
+
+    res.send(results);
+
+  }).catch(err=>{
+
+    res.send(err);
+
+  });
 
 });
 
