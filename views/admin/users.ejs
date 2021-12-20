@@ -39,7 +39,7 @@
                         <td><%= row.name %></td>
                         <td><%= row.email %></td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-info btn-update"><i class="fa fa-pencil"></i> Editar</button>&nbsp;
+                            <button type="button" class="btn btn-xs btn-info btn-update" ></i> Editar</button>&nbsp;
                             <button type="button" class="btn btn-xs btn-warning">
                                 <i class="fa fa-lock"></i> Alterar Senha</button>&nbsp;
                             <button type="button" class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i> Excluir</button></td>
@@ -178,9 +178,9 @@
     }
   });
 
-    document.querySelector("#modal-update-password").save({
+    document.querySelector("#modal-update-password form").save({
       
-      sucess:()=>{
+      success:()=>{
 
         window.location.reload();
 

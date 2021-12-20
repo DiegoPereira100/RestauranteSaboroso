@@ -59,7 +59,7 @@ module.exports = {
         });
     },
 
-    delete(date){
+    delete(id){
 
         return new Promise((resolve, reject)=>{
 
